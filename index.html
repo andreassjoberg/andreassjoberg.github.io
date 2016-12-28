@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="css/font-awesome.min.css">
 
         <link rel="stylesheet" href="css/reveal.css">
-        <link rel="stylesheet" href="css/theme/solarized.css">
+        <link rel="stylesheet" href="css/theme/night.css" id="theme">
 
         <!-- Theme used for syntax highlighting of code -->
         <link rel="stylesheet" href="lib/css/zenburn.css">
@@ -25,17 +25,20 @@
         <script src="js/jquery-ui.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
 
-        <!-- Printing and PDF exports -->
         <script>
-            var link = document.createElement( 'link' );
-            link.rel = 'stylesheet';
-            link.type = 'text/css';
-            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-            document.getElementsByTagName( 'head' )[0].appendChild( link );
+            var currentThemeIndex = -1;
+            var themes = [ 'beige', 'black', 'blood', 'league', 'moon', 'night', 'serif', 'simple', 'sky', 'solarized', 'white' ]
+
+            function switchTheme() {
+                currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+                var themePath = 'css/theme/' + themes[currentThemeIndex] + '.css';
+                $('#theme').attr('href', themePath);
+            }
         </script>
     </head>
     <body>
         <div class="reveal">
+            <aside style="display:block; position:fixed; left:10px; bottom:10px; z-index:30;"><a href="javascript:void(0);" onclick="switchTheme();"><small>Tema</small></a></aside>
             <div class="slides">
                 <section>
                     <h1>Definition of Done</h1>
@@ -148,7 +151,7 @@
                 dependencies: [
                     { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
                     { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-                    { src: 'plugin/print-pdf/print-pdf.js', async: true },
+                    // { src: 'plugin/print-pdf/print-pdf.js', async: true },
                     { src: 'plugin/zoom-js/zoom.js', async: true }
                 ]
             });
