@@ -24,21 +24,26 @@
         <script src="js/jquery-3.1.1.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-
-        <script>
-            var currentThemeIndex = -1;
-            var themes = [ 'beige', 'black', 'blood', 'league', 'moon', 'night', 'serif', 'simple', 'sky', 'solarized', 'white' ]
-
-            function switchTheme() {
-                currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-                var themePath = 'css/theme/' + themes[currentThemeIndex] + '.css';
-                $('#theme').attr('href', themePath);
-            }
-        </script>
     </head>
     <body>
+        <aside style="display:block; position:fixed; left:10px; top:10px; z-index:30;">
+            <small>
+                <select name="theme-select" id="theme-select">
+                    <option value="beige">Beige</option>
+                    <option value="black">Black</option>
+                    <option value="blood">Blood</option>
+                    <option value="league">League</option>
+                    <option value="moon">Moon</option>
+                    <option value="night" selected="selected">Night</option>
+                    <option value="serif">Serif</option>
+                    <option value="simple">Simple</option>
+                    <option value="sky">Sky</option>
+                    <option value="solarized">Solarized</option>
+                    <option value="white">White</option>
+                </select>
+            </small>
+        </aside>
         <div class="reveal">
-            <aside style="display:block; position:fixed; left:10px; bottom:10px; z-index:30;"><a href="javascript:void(0);" onclick="switchTheme();"><small>Tema</small></a></aside>
             <div class="slides">
                 <section>
                     <h1>Definition of Done</h1>
@@ -154,6 +159,17 @@
                     // { src: 'plugin/print-pdf/print-pdf.js', async: true },
                     { src: 'plugin/zoom-js/zoom.js', async: true }
                 ]
+            });
+
+            function switchTheme(themeName) {
+                var themePath = 'css/theme/' + themeName + '.css';
+                $('#theme').attr('href', themePath);
+            }
+
+            $('#theme-select').selectmenu({
+                change: function(event, data) {
+                    switchTheme(data.item.value);
+                }
             });
         </script>
     </body>
